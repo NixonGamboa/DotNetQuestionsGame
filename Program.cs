@@ -12,9 +12,9 @@ namespace HelloWorld
         {
             Console.WriteLine("Hello Nixon!");
             var options = new List<string>() {"3", "4" , "5"};
-            var questionOne = new Pregunta("2+2", options, "4");
+            var questionOne = new Question("2+2", options, "4", 1);
 
-            Console.WriteLine(questionOne.question);
+            Console.WriteLine(questionOne.statement);
             questionOne.options.ForEach(option => Console.WriteLine(option) );
             
             Console.WriteLine(questionOne.options);
