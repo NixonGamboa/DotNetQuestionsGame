@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using HelloWorld.model;
 using MongoDB.Driver;
 
@@ -19,6 +20,14 @@ namespace HelloWorld.repositories
             var collectionDb = connect();
             collectionDb.InsertOne(question);
         }
+
+        public List<Question> getQuestions(int category){
+            var collectionDb = connect();
+            List<Question> questions = collectionDb.Find(d => d.category == category).ToList();
+            return questions;
+        }
+
+    
         
     }
 }

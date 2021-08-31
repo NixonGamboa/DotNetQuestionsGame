@@ -18,7 +18,7 @@ namespace HelloWorld.model
         
         [BsonElement("respuesta")]
         public string correct {get;  set;}
-        // [BsonElement("categoria")]
+        [BsonElement("categoria")]
         public int category {get; set;}
         /*public Question(string statement, List<string> options, string answer, int category){
             this.statement = statement;

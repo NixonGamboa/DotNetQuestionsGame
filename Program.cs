@@ -9,25 +9,38 @@ namespace HelloWorld
 {
     class Program
     {
-        static void Main(string[] args)
-        {
+        static void Main(string[] args){
             Console.WriteLine("Hello Nixon!");
-            var options = new List<string>() {"3", "4" , "5"};
-            var questionOne = new Question() {
-                statement = "2+2",
-                options = options,
-                correct = "4",
-                category = 1
-             }; 
-
             var Repo = new QuestionRepository();
 
-            Repo.create(questionOne);
+            // for (int i = 3; i < 8; i++) {
+            //     var questionOne = new Question() {
+            //         statement = $"cuanto es {i}^3? ",
+            //         options = new List<string>() { $"{i*i*i+9}", $"{i*i*i-2}" , $"{i*i*i}", $"{i*i}"},
+            //         correct = $"{i*i*i}",
+            //         category = 5
+            //     }; 
+            //     Repo.create(questionOne);
+            // }
+            Console.WriteLine("Bienvenido a quien quiere ser millonario:: Ingresa tu opcion:");
+            Console.WriteLine("1. Iniciar el Juego");
 
-            Console.WriteLine(questionOne.statement);
-            questionOne.options.ForEach(option => Console.WriteLine(option) );
+            var game = new Game()
+
+           
+
+
+
+            List<Question> abc = Repo.getQuestions(5);
+            abc.ForEach(q =>{
+                Console.WriteLine(q.statement);
+                q.options.ForEach(option => Console.WriteLine(option) );
             
-            Console.WriteLine(questionOne.isCorrect("4"));
+                Console.WriteLine(q.isCorrect("4"));
+            });
+            Console.WriteLine("Bye Nixon!");
+
+            
         }
     }
 }
