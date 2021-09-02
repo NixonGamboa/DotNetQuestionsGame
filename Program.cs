@@ -15,23 +15,24 @@ namespace HelloWorld
         private static Random random = new Random();
 
         static void Main(string[] args){
-            Console.WriteLine("Bienvenido a quien quiere ser millonario:: Ingresa tu opcion:");
+            Console.WriteLine("Bienvenido a quien quiere ser millonario ... ");
             Gamer gamer = queryGamer();
-            Console.WriteLine(gamer.name);
-            Console.WriteLine(gamer.id);
+            Console.WriteLine($" Bienvenido {gamer.name}, tienes {gamer.coins} monedas");
+            Thread.Sleep(1500);
             Console.WriteLine("Iniciando el Juego...");
-            for (int i = 0; i < 3; i++) {
-                Console.WriteLine("...");
-                Thread.Sleep(500);
-            }
             Game game = new Game(Constants.MAX_ROUNDS, gamer);
             int score =  play(game);
+            Console.ResetColor();
+            Thread.Sleep(1200);
+            Console.WriteLine("Has finalizado el juego con {0} puntos",score);
+            Thread.Sleep(1200);
             gamer.addCoins(score);
-            
-
-            Console.WriteLine("Bye Nixon!");
-
-            
+            Console.WriteLine("{0}, has acumulado {1} monedas", gamer.name, gamer.coins);
+            Thread.Sleep(1200);
+            gamerRepo.update(gamer);
+            Console.WriteLine("Guardando tu avance ... ");
+            Thread.Sleep(1200);
+            Console.WriteLine("Listo {0}! Bye!", gamer.name);
         }
 
         private static Gamer queryGamer(){
@@ -54,8 +55,14 @@ namespace HelloWorld
 
         private static int play(Game game){
                 while (!game.finish)  {
+                    Console.ResetColor();
+                    Thread.Sleep(3000);
+                    Console.Clear();
                     List<Question> questions = questionRepo.getQuestions(game.round);
                     Question question = questions[random.Next(questions.Count)];
+                    int points = (int)(Math.Sqrt(game.round)*10);
+                    Console.WriteLine("############################################## ");
+                    Console.WriteLine($"** {game.round} {(game.round >= Constants.MAX_ROUNDS? " y ultimo": "" ) }. nivel! Por {points} puntos!  acum: {game.score}");
                     Console.WriteLine(question.statement);
                     List<string> options = question.options;
                     for (int i = 0; i < options.Count; i++) {
@@ -63,17 +70,20 @@ namespace HelloWorld
                     }
                     Console.WriteLine("...Presione cualquier numero para retirarse con {0} puntos", game.score);
                     var response =  Convert.ToInt32(Console.ReadLine())-1;
+                    Thread.Sleep(1000);
                     if(response < 0 || response >= options.Count){
+                        Console.BackgroundColor = ConsoleColor.DarkCyan;
                         Console.WriteLine("### Usted ha elegido retirarse con {0} puntos", game.score);
                         game.finishGame(true);
                         return game.score;
                     }
                     if(!question.isCorrect(options[response])){
+                        Console.BackgroundColor = ConsoleColor.DarkRed;
                         Console.WriteLine("Respuesta incorrecta, ha perdido el juego y todos sus puntos");
                         game.finishGame(true);
                         return 0;
-                    }  
-                    int points = (int)(Math.Sqrt(game.round)*10);
+                    } 
+                    Console.BackgroundColor = ConsoleColor.DarkGreen;
                     Console.WriteLine($"Felicidades, respuesta correcta! Ganaste {points} puntos");
                     game.winLevel(points);
                 }

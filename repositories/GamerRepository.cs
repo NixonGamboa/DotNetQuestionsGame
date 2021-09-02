@@ -21,9 +21,15 @@ namespace HelloWorld.repositories
 
         public List<Gamer> getGamers(){
             var collectionDb = connect();
-            List<Gamer> gamers = collectionDb.Find(d => true).ToList();
+            List<Gamer> gamers = collectionDb.Find(g => true).ToList();
             return gamers;
         }
 
+        public void update(Gamer gamer){
+            var collectionDb = connect();
+            var filter = Builders<Gamer>.Filter.Eq("id", gamer.id);
+            var update = Builders<Gamer>.Update.Set("coins", gamer.coins);
+            collectionDb.UpdateOne(filter, update);
+        }
     }
 }

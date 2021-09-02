@@ -21,7 +21,7 @@ namespace HelloWorld.model
         }
 
         public void addCoins(int score ){
-            this.coins = coins+ (score*100);
+            this.coins = coins+ (score*10);
         }
     }
 }
