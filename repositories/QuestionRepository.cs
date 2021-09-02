@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using HelloWorld.model;
+using HelloWorld.utils;
 using MongoDB.Driver;
 
 namespace HelloWorld.repositories
@@ -9,9 +10,9 @@ namespace HelloWorld.repositories
     public class QuestionRepository
     {
         public IMongoCollection<Question> connect(){
-            var settings = MongoClientSettings.FromConnectionString("mongodb+srv://PauloLaSerna:12345@cluster0.5ixtz.mongodb.net/questionGame?retryWrites=true&w=majority");
+            var settings = MongoClientSettings.FromConnectionString(Constants.MONGO_URI);
             var client = new MongoClient(settings);
-            var database = client.GetDatabase("questionGame");
+            var database = client.GetDatabase(Constants.MONGO_DB);
             var collection = database.GetCollection<Question>("preguntas");
             return collection;
         }
