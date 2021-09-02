@@ -68,7 +68,7 @@ namespace HelloWorld
                     for (int i = 0; i < options.Count; i++) {
                         Console.WriteLine("{0}. -> {1} ",i+1,options[i]);
                     }
-                    Console.WriteLine("...Presione cualquier numero para retirarse con {0} puntos", game.score);
+                    Console.WriteLine("...Presione cualquier otro numero para retirarse con {0} puntos", game.score);
                     var response =  Convert.ToInt32(Console.ReadLine())-1;
                     Thread.Sleep(1000);
                     if(response < 0 || response >= options.Count){
