@@ -19,5 +19,9 @@ namespace HelloWorld.model
             this.name = name;
             this.coins = coins;
         }
+
+        public void addCoins(int score ){
+            this.coins = coins+ (score*100);
+        }
     }
 }

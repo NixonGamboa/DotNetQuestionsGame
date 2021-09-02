@@ -24,5 +24,6 @@ namespace HelloWorld.repositories
             List<Gamer> gamers = collectionDb.Find(d => true).ToList();
             return gamers;
         }
+
     }
 }
